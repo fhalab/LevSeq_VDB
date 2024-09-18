@@ -7,6 +7,9 @@ FROM python:${INSTALL_PYTHON_VERSION}-slim-bullseye AS builder
 
 WORKDIR /app
 
+# ===== Where everything will be stored
+RUN mkdir /data
+
 COPY --from=node /usr/local/bin/ /usr/local/bin/
 COPY --from=node /usr/lib/ /usr/lib/
 # See https://github.com/moby/moby/issues/37965
@@ -34,8 +37,7 @@ RUN chown -R sid:sid /app
 USER sid
 ENV PATH="/home/sid/.local/bin:${PATH}"
 
-# ===== Where everything will be stored
-RUN mkdir /data
+
 
 COPY --from=builder --chown=sid:sid /app/levseq_vdb/static /app/levseq_vdb/static
 COPY requirements requirements
