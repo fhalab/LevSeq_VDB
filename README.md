@@ -5,8 +5,24 @@ working with other protein database managers and software engineers, so stay tun
 the meantime about how we can improve sequnece function data collection and sharing. If you have any suggestions
 please post an issue, we would love to build this into a community driven thing.
 
-## Running once setup
+## Running
+You need to set your `.env` file (see below) but otherwise the below should work! (add the below lines to a .env file)
 
+```
+DATABASE_URL=postgresql://{the user below}:{the password below}@postgres:5432/{name of the DB}
+DB_USER=
+DB_PASSWORD=
+SECRET_KEY=
+# Environment variable overrides for local development
+FLASK_APP=levseq_vdb/app.py
+FLASK_DEBUG=1
+FLASK_ENV=development
+GUNICORN_WORKERS=1
+LOG_LEVEL=debug
+# In production, set to a higher number, like 31556926
+SEND_FILE_MAX_AGE_DEFAULT=0
+
+```
 
 ```bash
 docker compose up postgres
@@ -23,26 +39,6 @@ Then just go to your local server: `http://127.0.0.1:8080/` you should be able t
 
 ## Database setup (only run the first time)
 
-You'll need to create a .env file with the following variables:
-
-```
-DB_URL=postgresql://{the user below}:{the password below}@postgres:5432/{name of the DB}
-DB_USER=
-DB_PASSWORD=
-SECRET_KEY=
-```
 
 You need to have docker installed for this to work, this has been tested on a mac and linux!
-
-** TBH I had issues running the database so I combined it into the docker compose. This could be problematic for a 
-full prod deployment so something to consider.**
-
-First run docker compose to spin everything up:
-```bash
-docker compose up postgres
-```
-
-```bash
-docker compose up flask-dev
-```
 

@@ -8,7 +8,6 @@ x-default-volumes: &default_volumes
   volumes:
     - ./:/app
     - node-modules:/app/node_modules
-    - ./OLD_dev.db:/tmp/OLD_dev.db
 
 services:
   postgres:
@@ -30,7 +29,7 @@ services:
     image: "levseq-development"
     environment:
       FLASK_APP: levseq_vdb/app.py
-      DATABASE_URL: ${DB_URL}
+      DATABASE_URL: ${DATABASE_URL}
       SECRET_KEY: ${SECRET_KEY}
       SEND_FILE_MAX_AGE_DEFAULT: 3600
     depends_on:
