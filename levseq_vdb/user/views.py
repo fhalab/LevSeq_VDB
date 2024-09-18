@@ -24,6 +24,9 @@ from levseq_vdb.user.forms import UploadExperimentForm
 from levseq_vdb.utils import flash_errors
 import os
 
+import os
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
 blueprint = Blueprint("user", __name__, url_prefix="/users", static_folder="../static")
 
 
@@ -45,12 +48,12 @@ def members():
             name = form.name.data.replace(' ', '_')
             reaction = form.reaction.data
             # Probs should sanitize the name
-            if not os.path.exists(f'/data/{user_id}/{name}'):
-                if not os.path.exists(f'/data/'):
-                    os.system(f'mkdir /data/')
-                if not os.path.exists(f'/data/{user_id}/'):
-                    os.system(f'mkdir /data/{user_id}')
-                os.system(f'mkdir /data/{user_id}/{name}/')
+            if not os.path.exists(f'{dir_path}/data/{user_id}/{name}'):
+                if not os.path.exists(f'{dir_path}/data/'):
+                    os.system(f'mkdir {dir_path}/data/')
+                if not os.path.exists(f'{dir_path}/data/{user_id}/'):
+                    os.system(f'mkdir {dir_path}/data/{user_id}')
+                os.system(f'mkdir {dir_path}/data/{user_id}/{name}/')
 
             json_meta = json.dumps({
                     "substrate": substrate,
