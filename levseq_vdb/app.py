@@ -18,7 +18,7 @@ from levseq_vdb.extensions import (
 )
 
 
-def create_app(config_object="levseq.settings"):
+def create_app(config_object="levseq_vdb.settings"):
     """Create application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
 
     :param config_object: The configuration object to use.
