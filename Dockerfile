@@ -56,8 +56,8 @@ CMD ["-c", "/etc/supervisor/supervisord.conf"]
 
 
 # ================================= DEVELOPMENT ================================
-#FROM builder AS development
-#RUN pip install --no-cache -r requirements/dev.txt
-#EXPOSE 2992
-#EXPOSE 5000
-#CMD [ "npm", "start" ]
+FROM builder AS development
+RUN pip install --no-cache -r requirements/dev.txt
+EXPOSE 2992
+EXPOSE 5000
+CMD [ "npm", "start" ]

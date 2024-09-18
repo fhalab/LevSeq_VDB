@@ -89,9 +89,11 @@ def members():
 OK I do hate myself a bit for this but couldn't work out how to extend the form so for now this
 is fine. I'm so sorry to whoever reads this and has to pick up my technical debt
 """
+
 def is_valid_protein(sequence):
     valid_amino_acids = set("ACDEFGHIKLMNPQRSTVWY")
     return all(residue in valid_amino_acids for residue in sequence.upper())
+
 
 def validate_form(uploaded_form):
         """Validate the Experiment form use https://cirpy.readthedocs.io/en/latest/."""
@@ -119,6 +121,7 @@ def validate_form(uploaded_form):
             print("Unable to resolve CAS for product, please enter a valid CAS product")
             return False
         return True
+
 
 @blueprint.route('/get_data/<id>', methods=['GET', 'POST'])
 @login_required
@@ -169,12 +172,12 @@ def experiments():
     rows = []
     for data in datasets:
         # expand out the metadata
-        print(data.meta)
-        meta = json.loads(str(data.meta))
-        reaction = meta['reaction']
-        substrate = meta['substrate']
-        product = meta['product']
-        rows.append([data.user_created, data.name, data.id, reaction, substrate, product, str(data.created_at), f"<a href='/users/get_data/{data.id}'>load</a>"])
+        if user_id == data.user_created:
+            meta = json.loads(str(data.meta))
+            reaction = meta['reaction']
+            substrate = meta['substrate']
+            product = meta['product']
+            rows.append([data.user_created, data.name, data.id, reaction, substrate, product, str(data.created_at), f"<a href='/users/get_data/{data.id}'>load</a>"])
                     
     columns = [{"title": "user_created"},
                {"title": "name"},
@@ -186,5 +189,4 @@ def experiments():
                {"title": ""}]
     return render_template('users/experiments.html',
                         data=json.dumps({'columns': columns, 'rows': rows}),
-                        columns=columns
-                        )
+                        columns=columns)

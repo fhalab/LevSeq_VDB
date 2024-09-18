@@ -2,7 +2,7 @@
 
 Web app for locally hosting levseq. Our goal is to make this also as a centralised resource, for this we are 
 working with other protein database managers and software engineers, so stay tuned! We would love feedback in 
-the meantime about how we can improve sequnece function data collection and sharing. If you have any suggestions
+the meantime about how we can improve sequence function data collection and sharing. If you have any suggestions
 please post an issue, we would love to build this into a community driven thing.
 
 ## Running
@@ -11,6 +11,7 @@ You need to set your `.env` file (see below) but otherwise the below should work
 ```
 DATABASE_URL=postgresql://{the user below}:{the password below}@postgres:5432/{name of the DB}
 DB_USER=
+DB=levseq
 DB_PASSWORD=
 SECRET_KEY=
 # Environment variable overrides for local development

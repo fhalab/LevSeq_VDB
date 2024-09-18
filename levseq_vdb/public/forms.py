@@ -22,6 +22,7 @@ class LoginForm(FlaskForm):
         """Validate the form."""
         initial_validation = super(LoginForm, self).validate()
         if not initial_validation:
+            self.username.errors.append("Some kind of issue, maybe the username exists idk m8 (jk is your email valid?)")
             return False
 
         self.user = User.query.filter_by(username=self.username.data).first()

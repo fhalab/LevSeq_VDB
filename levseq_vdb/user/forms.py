@@ -36,6 +36,7 @@ class RegisterForm(FlaskForm):
         """Validate the form."""
         initial_validation = super(RegisterForm, self).validate()
         if not initial_validation:
+            self.username.errors.append("Some kind of issue, maybe the username exists or email exists...")
             return False
         user = User.query.filter_by(username=self.username.data).first()
         if user:
@@ -47,14 +48,17 @@ class RegisterForm(FlaskForm):
             return False
         return True
 
+
 # Custom validator to check for alphanumeric characters
 def alphanumeric(form, field):
     if not re.match("^[a-zA-Z0-9]*$", field.data):
         raise ValidationError('Field must contain only alphanumeric characters.')
 
+
 def is_valid_protein(sequence):
     valid_amino_acids = set("ACDEFGHIKLMNPQRSTVWY")
     return all(residue in valid_amino_acids for residue in sequence.upper())
+
 
 class UploadExperimentForm(FlaskForm):
     """Form for users to upload data to."""
@@ -72,6 +76,7 @@ class UploadExperimentForm(FlaskForm):
     cas_product = StringField(
         "CAS product", validators=[DataRequired(), Length(min=1, max=1000)]
     )
+
     def __init__(self, *args, **kwargs):
         """Create instance."""
         self.product_smiles = None
