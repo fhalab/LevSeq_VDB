@@ -19,6 +19,6 @@
 Author: Ariane Mora
 Date: 09 April 2024
 
-Code to format data for various activities and also to integrate with the output from evSeqL
+Code to format data for various activities and also to integrate with the output from LevSeq
 """
 

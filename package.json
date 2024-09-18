@@ -1,7 +1,7 @@
 {
-  "name": "evseql",
+  "name": "levseq_vdb",
   "version": "1.0.0",
-  "description": "web app for evseq-long",
+  "description": "web app for levseq_vdb",
   "scripts": {
     "build": "run-script-os",
     "build:win32": "SET NODE_ENV=production && webpack --progress --color --optimization-minimize && npm run flask-static-digest",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arianemora/evseql.git"
+    "url": "https://github.com/fhalab/LevSeq_VDB"
   },
   "author": "Ariane Mora",
   "license": "MIT",
@@ -26,9 +26,9 @@
     "node": ">=20"
   },
   "bugs": {
-    "url": "https://github.com/arianemora/evseql/issues"
+    "url": "https://github.com/fhalab/LevSeq_VDB/issues"
   },
-  "homepage": "https://github.com/arianemora/evseql#readme",
+  "homepage": "https://github.com/fhalab/LevSeq_VDB#readme",
   "dependencies": {
     "@fortawesome/fontawesome-free": "6.5.2",
     "bootstrap": "5.3.3",

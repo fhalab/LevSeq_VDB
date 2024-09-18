@@ -68,7 +68,7 @@ Where 4623059f56b7 is the container ID from before.
 
 Once logged in then you need to initialise the database by running the initDB sql.
 ```
-psql -U ylong evseql
+psql -U ylong levseq
 
 ```
 Now paste in all the sql statements in `init_db.sql`.
@@ -77,7 +77,7 @@ To look at the table ya can go:
 ```
 \l
 
-\c evseql
+\c levseq
 
 \dt
 ```
@@ -339,15 +339,15 @@ docker pull postgres
 ```
 
 ```
-docker run --name evseqdb -e POSTGRES_USER=ylong -e POSTGRES_PASSWORD=longseqislong -e POSTGRES_DB=evseql -p 5433:5432 -d postgres 
+docker run --name evseqdb -e POSTGRES_USER=ylong -e POSTGRES_PASSWORD=apassword -e POSTGRES_DB=levseq -p 5433:5432 -d postgres 
 ```
 
 Since we're using a persistent database we first need to create the user who will be owning it:
 
-First we login to postgres and setup a database called **evseql**.
+First we login to postgres and setup a database called **levseq**.
 
 ```
-CREATE DATABASE evseql;
+CREATE DATABASE levseq;
 ```
 Run the DB script in the `dev.db` file (i.e. connect to postgres and run the db script). In docker you can update 
 the docker file to be like:
@@ -380,7 +380,7 @@ CREATE USER ylong WITH PASSWORD 'longseqislong';
 
 Grant privileges:
 ```
-GRANT ALL PRIVILEGES ON DATABASE evseql TO APASSWORD;
+GRANT ALL PRIVILEGES ON DATABASE levseq TO APASSWORD;
 ```
 
 Check it worked.
