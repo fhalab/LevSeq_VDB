@@ -1,0 +1,76 @@
+version: "3.8"
+
+x-build-args: &build_args
+  INSTALL_PYTHON_VERSION: "3.10"
+  INSTALL_NODE_VERSION: "20"
+
+x-default-volumes: &default_volumes
+  volumes:
+    - ./:/app
+    - node-modules:/app/node_modules
+    - ./OLD_dev.db:/tmp/OLD_dev.db
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${DB}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+
+  flask-dev:
+    build:
+      context: .
+      target: development
+      args:
+        <<: *build_args
+    image: "evseql-development"
+    environment:
+      FLASK_APP: evseql/app.py
+      DATABASE_URL: ${DB_URL}
+      SECRET_KEY: ${SECRET_KEY}
+      SEND_FILE_MAX_AGE_DEFAULT: 3600
+    depends_on:
+      - postgres
+    ports:
+      - "8080:5000"
+      - "2992:2992"
+    <<: *default_volumes
+
+  flask-prod:
+    build:
+      context: .
+      target: production
+      args:
+        <<: *build_args
+    image: "evseql-production"
+    ports:
+      - "8080:5000"
+    environment:
+      FLASK_ENV: production
+      FLASK_DEBUG: 0
+      LOG_LEVEL: info
+      GUNICORN_WORKERS: 4
+    <<: *default_volumes
+
+  manage:
+    build:
+      context: .
+      target: development
+      args:
+        <<: *build_args
+    entrypoint: flask
+    environment:
+      FLASK_ENV: production
+      FLASK_DEBUG: 0
+    image: "evseql-manage"
+    stdin_open: true
+    tty: true
+    <<: *default_volumes
+
+volumes:
+  node-modules:
+  postgres-data:
