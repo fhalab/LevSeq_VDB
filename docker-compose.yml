@@ -53,6 +53,9 @@ services:
       FLASK_DEBUG: 0
       LOG_LEVEL: info
       GUNICORN_WORKERS: 4
+      FLASK_APP: levseq_vdb/app.py
+      DATABASE_URL: ${DATABASE_URL}
+      SECRET_KEY: ${SECRET_KEY}
     <<: *default_volumes
 
   manage:
