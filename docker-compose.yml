@@ -63,7 +63,7 @@ services:
   manage:
     build:
       context: .
-      target: development
+      target: production
       args:
         <<: *build_args
     entrypoint: flask

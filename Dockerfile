@@ -23,8 +23,10 @@ RUN npm install
 
 COPY webpack.config.js autoapp.py ./
 COPY levseq_vdb levseq_vdb
+COPY levseq_vdb /app/levseq_vdb
 COPY assets assets
 COPY .env.example .env
+ENV FLASK_APP=levseq_vdb/app.py
 RUN npm run-script build
 
 # ================================= PRODUCTION =================================
@@ -54,8 +56,8 @@ CMD ["-c", "/etc/supervisor/supervisord.conf"]
 
 
 # ================================= DEVELOPMENT ================================
-FROM builder AS development
-RUN pip install --no-cache -r requirements/dev.txt
-EXPOSE 2992
-EXPOSE 5000
-CMD [ "npm", "start" ]
+#FROM builder AS development
+#RUN pip install --no-cache -r requirements/dev.txt
+#EXPOSE 2992
+#EXPOSE 5000
+#CMD [ "npm", "start" ]
