@@ -54,7 +54,6 @@ def members():
                 if not os.path.exists(f'{dir_path}/data/{user_id}/'):
                     os.system(f'mkdir {dir_path}/data/{user_id}')
                 os.system(f'mkdir {dir_path}/data/{user_id}/{name}/')
-            json_data = df.to_json(orient='records')
 
             json_meta = json.dumps({
                     "substrate": substrate,
