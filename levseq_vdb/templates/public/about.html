@@ -1,0 +1,34 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="center-friend">
+        <div class="container-vertical">
+            <h1>Variant Sequencing with Nanopore</h1>
+            <p>In directed evolution, sequencing every variant enhances data insight and creates datasets suitable for AI/ML methods. This method is presented as an extension of the original Every Variant Sequencer using Illumina technology. With this approach, sequence variants can be generated within a day at an extremely low cost.</p>
+
+            <h2>Prerequisites</h2>
+            <p>Before using this repository, ensure the following preparations:</p>
+            <ul>
+              <li>Order forward and reverse primers compatible with the desired plasmid.</li>
+              <li>Successfully install Oxford Nanopore's software. <a href="#">Link to installation guide</a>.</li>
+              <li>Clone this GitHub repository to your local directory.</li>
+            </ul>
+
+            <h2>How to Use evSeq-Nanopore</h2>
+            <p>The wet lab part is detailed in the method section. Once samples are prepared, the multiplexed sample is used for sequencing, and the sequencing data is stored in the <code>../data</code> folder on Nanopore.</p>
+
+            <p>After sequencing, variants are identified. For simple applications, we recommend using the notebook <code>run_minion.ipynb</code>.</p>
+
+            <h3>Steps:</h3>
+            <ol>
+              <li><strong>Basecalling</strong>: This step converts Nanopore's FAST5 files to sequences. For basecalling, we use Nanopore's basecaller, Medaka, which can run in parallel with sequencing (recommended) or afterward.</li>
+              <li><strong>Demultiplexing</strong>: After sequencing, the reads, stored as bulk FASTQ files, are sorted. During demultiplexing, each read is assigned to its correct plate/well combination and stored as a FASTQ file.</li>
+              <li><strong>Variant Calling</strong>: For each sample, the consensus sequence is compared to the reference sequence. A variant is called if it differs from the reference sequence. The success of variant calling depends on the number of reads sequenced and their quality.</li>
+            </ol>
+        </div>
+    </div>
+
+
+{% endblock %}
+

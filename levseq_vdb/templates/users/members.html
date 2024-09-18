@@ -1,0 +1,39 @@
+
+{% extends "base.html" %}
+{% block content %}
+    <div class="container-narrow">
+      <h1 class="mt-5">Upload an experiment with activity data</h1>
+        <br/>
+        <form id="UploadExperimentForm" class="form form-register" method="POST" enctype="multipart/form-data" action="" role="form">
+               {{ form.csrf_token }}
+                <div class="form-group">
+                    {{form.name.label}}
+                    {{form.name(placeholder="Experiment name", class_="form-control")}}
+                </div>
+                <div class="form-group">
+                    {{form.protein.label}}
+                    {{form.protein(placeholder="Parent protein sequence", class_="form-control")}}
+                    <small id="emailHelp" class="form-text text-muted">This is the sequence of your parent protein (in amino acids).</small>
+                </div>
+                <div class="form-group">
+                    {{form.cas_substrate.label}}
+                    {{form.name(placeholder="CAS number of your substrate", class_="form-control")}}
+                </div>
+             <small id="cas" class="form-text text-muted">Your initial substrate CAS number, go here to find it: https://www.chemspider.com/</small>
+
+                <div class="form-group">
+                    {{form.cas_product.label}}
+                    {{form.name(placeholder="CAS number of your product", class_="form-control")}}
+                </div>
+                <div class="form-group">
+                    {{form.reaction.label}}
+                    {{form.reaction(placeholder="Reaction as a smiles string (optional)", class_="form-control")}}
+                    <small id="reaction-str" class="form-text text-muted">Your reaction as a smiles string, you can create that here: https://pubchem.ncbi.nlm.nih.gov/</small>
+                </div>
+                Output of LevSeq combined with activity data: <input type="file" name="levseq_file"><br>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <p><input class="btn btn-primary" type="submit" value="Upload"></p>
+        </form>
+</div>
+
+{% endblock %}
