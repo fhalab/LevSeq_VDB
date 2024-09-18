@@ -56,6 +56,8 @@ services:
       FLASK_APP: levseq_vdb/app.py
       DATABASE_URL: ${DATABASE_URL}
       SECRET_KEY: ${SECRET_KEY}
+    depends_on:
+      - postgres
     <<: *default_volumes
 
   manage:
