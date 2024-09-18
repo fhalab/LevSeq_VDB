@@ -58,7 +58,7 @@ def members():
             json_meta = json.dumps({
                     "substrate": substrate,
                     "product": product,
-                    "data": f'/data/{user_id}/{name}/{name}_data.csv',
+                    "data": f'{dir_path}/data/{user_id}/{name}/{name}_data.csv',
                     "substrate_cas": substrate,
                     "product_cas": product,
                     "reaction": reaction,
@@ -73,7 +73,7 @@ def members():
             df = pd.read_csv(csv_file)
             df['group'] = [str(w[0]) for w in df['Well'].values]
             df['variable'] = [str(w[1:]) for w in df['Well'].values]
-            df.to_csv(f'/data/{user_id}/{name}/{name}_data.csv')
+            df.to_csv(f'{dir_path}/data/{user_id}/{name}/{name}_data.csv')
             rows = df.values
             rows = [list(r) for r in rows]
             columns = [{'title': c} for c in df.columns]
