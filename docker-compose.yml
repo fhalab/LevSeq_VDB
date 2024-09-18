@@ -29,7 +29,7 @@ services:
         <<: *build_args
     image: "levseq-development"
     environment:
-      FLASK_APP: levseq/app.py
+      FLASK_APP: levseq_vdb/app.py
       DATABASE_URL: ${DB_URL}
       SECRET_KEY: ${SECRET_KEY}
       SEND_FILE_MAX_AGE_DEFAULT: 3600
