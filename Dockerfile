@@ -8,7 +8,7 @@ FROM python:${INSTALL_PYTHON_VERSION}-slim-bullseye AS builder
 WORKDIR /app
 
 # ===== Where everything will be stored
-RUN mkdir /data
+
 
 COPY --from=node /usr/local/bin/ /usr/local/bin/
 COPY --from=node /usr/lib/ /usr/lib/
@@ -34,8 +34,14 @@ FROM python:${INSTALL_PYTHON_VERSION}-slim-buster as production
 
 WORKDIR /app
 
+RUN mkdir /app/levseq_vdb/data
+
 RUN useradd -m sid
 RUN chown -R sid:sid /app
+RUN chown -R sid:sid /app/levseq_vdb/data
+RUN chmod u+rw /app/levseq_vdb/data
+RUN chmod u-x /app/levseq_vdb/data
+
 USER sid
 ENV PATH="/home/sid/.local/bin:${PATH}"
 
