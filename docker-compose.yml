@@ -27,9 +27,9 @@ services:
       target: development
       args:
         <<: *build_args
-    image: "evseql-development"
+    image: "levseq-development"
     environment:
-      FLASK_APP: evseql/app.py
+      FLASK_APP: levseq/app.py
       DATABASE_URL: ${DB_URL}
       SECRET_KEY: ${SECRET_KEY}
       SEND_FILE_MAX_AGE_DEFAULT: 3600
@@ -46,7 +46,7 @@ services:
       target: production
       args:
         <<: *build_args
-    image: "evseql-production"
+    image: "levseq-production"
     ports:
       - "8080:5000"
     environment:
@@ -66,7 +66,7 @@ services:
     environment:
       FLASK_ENV: production
       FLASK_DEBUG: 0
-    image: "evseql-manage"
+    image: "levseq-manage"
     stdin_open: true
     tty: true
     <<: *default_volumes

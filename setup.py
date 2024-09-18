@@ -57,7 +57,7 @@ setup(name='levseq',
           'Topic :: Scientific/Engineering :: Bio-Informatics',
       ],
       keywords=['Nanopore', 'ONT', 'levseq'],
-      packages=['minION'],
+      packages=['levseq'],
       entry_points={
           'console_scripts': [
               'levseq = levseq.cmd:main'

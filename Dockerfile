@@ -19,7 +19,7 @@ COPY package.json ./
 RUN npm install
 
 COPY webpack.config.js autoapp.py ./
-COPY evseql evseql
+COPY levseq levseq
 COPY assets assets
 COPY .env.example .env
 RUN npm run-script build
@@ -37,7 +37,7 @@ ENV PATH="/home/sid/.local/bin:${PATH}"
 # ===== Where everything will be stored
 RUN mkdir /data
 
-COPY --from=builder --chown=sid:sid /app/evseql/static /app/evseql/static
+COPY --from=builder --chown=sid:sid /app/levseq/static /app/levseq/static
 COPY requirements requirements
 RUN pip install --no-cache --user -r requirements/prod.txt
 
