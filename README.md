@@ -7,6 +7,7 @@ please post an issue, we would love to build this into a community driven thing.
 
 ## Running once setup
 
+
 ```bash
 docker compose up postgres
 ```
@@ -22,7 +23,16 @@ Then just go to your local server: `http://127.0.0.1:8080/` you should be able t
 
 ## Database setup (only run the first time)
 
-You need to have docker installed for this to work, this has been tested on a mac!
+You'll need to create a .env file with the following variables:
+
+```
+DB_URL=postgresql://{the user below}:{the password below}@postgres:5432/{name of the DB}
+DB_USER=
+DB_PASSWORD=
+SECRET_KEY=
+```
+
+You need to have docker installed for this to work, this has been tested on a mac and linux!
 
 ** TBH I had issues running the database so I combined it into the docker compose. This could be problematic for a 
 full prod deployment so something to consider.**
