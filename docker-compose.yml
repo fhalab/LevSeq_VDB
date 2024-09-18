@@ -46,8 +46,6 @@ services:
       args:
         <<: *build_args
     image: "levseq-production"
-    ports:
-      - "8080:5000"
     environment:
       FLASK_ENV: production
       FLASK_DEBUG: 0
@@ -58,6 +56,8 @@ services:
       SECRET_KEY: ${SECRET_KEY}
     depends_on:
       - postgres
+    ports:
+      - "8080:5000"
     <<: *default_volumes
 
   manage:
