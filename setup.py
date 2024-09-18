@@ -32,7 +32,7 @@ def readme():
         return f.read()
 
 
-setup(name='levseq',
+setup(name='levseq_vdb',
       version=read_version(),
       description='',
       long_description=readme(),
