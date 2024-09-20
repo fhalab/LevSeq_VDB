@@ -3,6 +3,7 @@ function loadTable(data) {
         columns: data.columns,
         data: data.rows,
         dom: 'Bfrtip',
+        columnDefs: [ { "defaultContent": "-", "targets": "_all" } ],
         buttons: ['csv', 'excel']
     });
 }

@@ -58,7 +58,8 @@
         columns: data.columns,
         data: data.rows,
         dom: 'Bfrtip',
-        buttons: ['csv', 'excel']
+        buttons: ['csv', 'excel'],
+        columnDefs: [ { "defaultContent": "-", "targets": "_all" } ]
     });
     // make_heatmap(all_data, div_id, dropdown_id, colour_column, plate_id, currentPlateId
     make_heatmap(heatmap_df, '#heatmap-left', '#dropdown-left', 'Average mutation frequency', '#dropdown-top-left', '')
