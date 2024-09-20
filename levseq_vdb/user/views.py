@@ -47,18 +47,18 @@ def members():
             protein = form.protein.data
             name = form.name.data.replace(' ', '_')
             reaction = form.reaction.data
-            # Probs should sanitize the name
-            if not os.path.exists(f'{dir_path}/data/{user_id}/{name}'):
-                if not os.path.exists(f'{dir_path}/data/'):
-                    os.system(f'mkdir {dir_path}/data/')
-                if not os.path.exists(f'{dir_path}/data/{user_id}/'):
-                    os.system(f'mkdir {dir_path}/data/{user_id}')
-                os.system(f'mkdir {dir_path}/data/{user_id}/{name}/')
+            df = pd.read_csv(csv_file)
+            df['group'] = [str(w[0]) for w in df['Well'].values]
+            df['variable'] = [str(w[1:]) for w in df['Well'].values]
+            # Make a string which we can read back in
+            csv_str = ','.join(df.columns) + '\n'
+            for row in df.values:
+                csv_str += ','.join([str(s) for s in row]) + '\n'
 
             json_meta = json.dumps({
                     "substrate": substrate,
                     "product": product,
-                    "data": f'{dir_path}/data/{user_id}/{name}/{name}_data.csv',
+                    "data": csv_str,
                     "substrate_cas": substrate,
                     "product_cas": product,
                     "reaction": reaction,
@@ -70,17 +70,12 @@ def members():
                 user_created=current_user.id,
                 meta=json_meta  # Change this to the path where the data are stored...
             )
-            df = pd.read_csv(csv_file)
-            df['group'] = [str(w[0]) for w in df['Well'].values]
-            df['variable'] = [str(w[1:]) for w in df['Well'].values]
-            df.to_csv(f'{dir_path}/data/{user_id}/{name}/{name}_data.csv')
             rows = df.values
             rows = [list(r) for r in rows]
             columns = [{'title': c} for c in df.columns]
             df_for_d3 = df.to_dict(orient='records')  # Each row becomes a dictionary
             numerical_df = df.select_dtypes(include=['number'])
             numerical_columns = [{'title': col} for col in numerical_df.columns]
-
             return render_template('public/heatmap.html',
                                     data=json.dumps({'columns': columns, 'rows': rows}),
                                     columns=numerical_columns,
@@ -138,7 +133,6 @@ def get_data(id):
     data_belongs_to_user = False
     for data in datasets:
         # expand out the metadata
-        print(data.meta)
         meta = json.loads(str(data.meta))
         reaction = meta['reaction']
         substrate = meta['substrate']
@@ -150,12 +144,31 @@ def get_data(id):
             data_belongs_to_user = True
             break
     if data_belongs_to_user:
-    # Get the experiments 
-        df = pd.read_csv(f'/data/{user_id}/{name}/{name}_data.csv')
-        rows = df.values
-        rows = [list(r) for r in rows]
-        columns = [{'title': c} for c in df.columns]
+        # Get the experiments
+        meta = json.loads(str(data.meta))
+        # Now we want to get out the string of the csv that we wrote in
+        rows = []
+        columns = None
+        csv_info = meta['data']
+        first_line = True
+        for line in csv_info.split('\n'):
+            line = line.split(',')
+            if first_line:
+                columns = [str(s).strip() for s in line]
+                first_line = False
+            else:
+                row = []
+                for l in line:
+                    try:
+                        row.append(float(l))
+                    except:
+                        row.append(str(l).strip())
+                rows.append(row)
+        df = pd.DataFrame(rows, columns=columns)
         df_for_d3 = df.to_dict(orient='records')  # Each row becomes a dictionary
+
+        columns = [{'title': c} for c in columns]
+
         numerical_df = df.select_dtypes(include=['number'])
         numerical_columns = [{'title': col} for col in numerical_df.columns]
 

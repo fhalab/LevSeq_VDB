@@ -34,18 +34,11 @@ FROM python:${INSTALL_PYTHON_VERSION}-slim-buster as production
 
 WORKDIR /app
 
-RUN mkdir /app/levseq_vdb/data
-
 RUN useradd -m sid
 RUN chown -R sid:sid /app
-RUN chown -R sid:sid /app/levseq_vdb/data
-RUN chmod u+rw /app/levseq_vdb/data
-RUN chmod u-x /app/levseq_vdb/data
 
 USER sid
 ENV PATH="/home/sid/.local/bin:${PATH}"
-
-
 
 COPY --from=builder --chown=sid:sid /app/levseq_vdb/static /app/levseq_vdb/static
 COPY requirements requirements
